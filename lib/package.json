@@ -1,0 +1,26 @@
+{
+  "name": "my-lib-demo",
+  "version": "0.0.1",
+  "description": "Lib Demo",
+  "author": "github.com/PowerRabbit",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "serve": "concurrently \"yarn build:watch\" \"yarn wds:start\"",
+    "build:watch": "rollup -c --watch",
+    "wds:start": "wds --watch"
+  },
+  "dependencies": {
+    "lit": "3.1.1"
+  },
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "15.2.3",
+    "@web/dev-server": "0.4.1",
+    "concurrently": "8.2.2",
+    "rollup": "4.9.4",
+    "rollup-plugin-scss-lit": "1.1.6",
+    "rollup-plugin-typescript2": "0.36.0"
+  }
+}

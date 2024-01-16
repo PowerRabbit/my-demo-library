@@ -1,0 +1,33 @@
+:root {
+    --color-primary-a0: #ffffff;
+    --color-primary-a10: #d1f0c9;
+    --color-primary-a20: #a2e093;
+    --color-primary-a30: #6ccf5c;
+
+    --color-primary-a50: #0dbd13;
+    --color-primary-a60: #1d8a18;
+    --color-primary-a70: #1d5b17;
+    --color-primary-a80: #162f12;
+    --color-primary-a90: #000000;
+
+    --min-block-height: 1rem;
+    --min-block-width: 1rem;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    display: flex;
+    font-family: sans-serif;
+    min-height: 100vh;
+    flex-direction: column;
+    margin: 0;
+    font-size: 1.6rem;
+    color: var(--color-primary-a90);
+}
+
+.content {
+    flex: 1;
+}
