@@ -3,7 +3,7 @@ import { customElement, property  } from 'lit/decorators.js';
 import styles from './button.style.scss';
 
 @customElement('my-button')
-export class MyElement extends LitElement {
+export class MyDemoButton extends LitElement {
     static override styles = styles;
 
     @property()
