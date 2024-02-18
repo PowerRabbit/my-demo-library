@@ -1,4 +1,4 @@
-import { CUSTOM_ELEMENTS_SCHEMA, ChangeDetectionStrategy, Component } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import 'my-lib-demo';
@@ -16,9 +16,24 @@ export class AppComponent {
     title = 'myApp';
 
     atomicDesignDialogOpen = false;
+    calendarDialogOpen = false;
+    locale = 'en-US';
+
+    constructor(private ref: ChangeDetectorRef) {
+
+    }
 
     openAtomicDesign() {
-        this.atomicDesignDialogOpen= true;
+        this.atomicDesignDialogOpen = true;
+    }
+
+    openCalendar() {
+        this.calendarDialogOpen = true;
+    }
+
+    changeLocale(e: Event) {
+        this.locale = (e.target as HTMLInputElement).value;
+        this.ref.detectChanges();
     }
 
 }

@@ -1,5 +1,5 @@
 import { CSSResultGroup, LitElement, css, html } from 'lit';
-import { customElement, state } from 'lit/decorators.js';
+import { customElement, property, state } from 'lit/decorators.js';
 
 const enum WeekDaysNamesIndecies {
     Sunday = 0,
@@ -9,10 +9,21 @@ const enum WeekDaysNamesIndecies {
 @customElement('simple-calendar')
 export class SimpleCalendar extends LitElement {
 
+    @property({ type: String, attribute: 'sc-locale' })
+    set scLocale(value: string) {
+        this._locale = value;
+        this.init();
+    }
+    get scLocale() {
+        return this._locale;
+    }
+
     @state()
         year = '2024';
     @state()
         month = '1';
+    @state()
+        _locale = 'en-US';
 
     static override styles: CSSResultGroup = css`
 
@@ -22,16 +33,32 @@ export class SimpleCalendar extends LitElement {
             gap: 0.2rem;
         }
 
+        input,
+        select {
+            border: 1px solid var(--color-bg-secondary);
+            border-radius: var(--border-radius);
+            margin-bottom: 1rem;
+            padding: 0.4rem 0.8rem;
+        }
+
     `;
 
-    private locale = 'en-US';
-    private firstDayIndex: WeekDaysNamesIndecies;
-    private localeDayNames: Array<string> = Array.from({ length: 7 }).map((_v, k) => new Date(`1990-01-${k + 1}`).toLocaleString(this.locale, { weekday: 'short' }));
-    private localeMonthNames: Array<string> = Array.from({ length: 12 }).map((_v, k) => new Date(`1990-${k + 1}-01`).toLocaleString(this.locale, { month: 'short' }));
+    private firstDayIndex: WeekDaysNamesIndecies = 0;
+    private localeDayNames: Array<string> = [];
+    private localeMonthNames: Array<string> = [];
 
     constructor() {
         super();
+        this.init();
+    }
+
+    private init() {
+
+        this.localeDayNames = Array.from({ length: 7 }).map((_v, k) => new Date(`1990-01-${k + 1}`).toLocaleString(this._locale, { weekday: 'short' }));
+        this.localeMonthNames = Array.from({ length: 12 }).map((_v, k) => new Date(`1990-${k + 1}-01`).toLocaleString(this._locale, { month: 'long' }));
+
         this.firstDayIndex = this.getFirstDayNumber() === 1 ? WeekDaysNamesIndecies.Sunday : WeekDaysNamesIndecies.Monday;
+
         if (this.firstDayIndex === 0) {
             this.localeDayNames.unshift(this.localeDayNames.pop() as string);
         }
@@ -75,7 +102,7 @@ export class SimpleCalendar extends LitElement {
     }
 
     private getFirstDayNumber() {
-        return ((new Intl.Locale(this.locale) || { weekInfo: { firstDay: 7 } }) as unknown as { weekInfo: { firstDay: number }}).weekInfo.firstDay;
+        return ((new Intl.Locale(this._locale) || { weekInfo: { firstDay: 7 } }) as unknown as { weekInfo: { firstDay: number }}).weekInfo.firstDay;
     }
 
     private getFirstMonthWeekdayIndex(date: Date) {

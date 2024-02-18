@@ -57,6 +57,27 @@
         <aside>
             <h3>Internationalisation</h3>
             <p>The ECMAScript 2024 Internationalization API Specification, provides key language sensitive functionality, which has been selected from that of well-established internationalization APIs.</p>
+            <my-button (myclick)="openCalendar()">Calendar</my-button>
+            <simple-dialog
+                (simpleDialogClosed)="calendarDialogOpen = false"
+                sd-aria-label="Internationalised calendar"
+                [attr.sd-is-open]="calendarDialogOpen ? '' : null">
+                <div slot="dialog-header">
+                    <select (change)="changeLocale($event)">
+                        <option value="en-US">USA</option>
+                        <option value="en-GB">Great Britain</option>
+                        <option value="fr-FR">France</option>
+                        <option value="da-DK">Denmark</option>
+                        <option value="ja-JP">Japan</option>
+                        <option value="ar-SA">Saudi Arabia</option>
+                        <option value="bg-BG">Bulgaria</option>
+                        <option value="sw-KE">Kenia (Swahili)</option>
+                    </select>
+                </div>
+                <div>
+                    <simple-calendar [attr.sc-locale]="locale"></simple-calendar>
+                </div>
+            </simple-dialog>
         </aside>
         <aside>
             <h3>Accessibility</h3>
