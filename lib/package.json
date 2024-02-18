@@ -13,7 +13,8 @@
     "wds:start": "wds --watch"
   },
   "dependencies": {
-    "lit": "3.1.1"
+    "lit": "3.1.1",
+    "mvp.css": "1.14.0"
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "15.2.3",

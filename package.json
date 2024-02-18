@@ -8,10 +8,10 @@
   "packageManager": "yarn@4.0.2",
   "private": true,
   "scripts": {
-    "lib:serve": "yarn workspace my-lib-demo serve",
-    "angular:serve": "yarn workspace my-angular-app start",
-    "react:serve": "yarn workspace my-react-app start",
-    "vue:serve": "yarn workspace my-vue-app dev"
+    "lib": "yarn workspace my-lib-demo serve",
+    "angular": "yarn workspace my-angular-app start",
+    "react": "yarn workspace my-react-app start",
+    "vue": "yarn workspace my-vue-app dev"
   },
   "workspaces": [
     "frameworks/angular",
