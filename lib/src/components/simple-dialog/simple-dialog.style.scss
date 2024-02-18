@@ -4,6 +4,7 @@
     --simpleDialogTop: 1rem;
     --simpleDialogPadding: 1rem;
     --simpleDialogMinWidth: 40vw;
+    --simpleDialogMaxWidth: 40vw;
     --simpleDialogBorder: none;
     --simpleDialogBorderRadius: 0.5rem;
     --simpleDialogBackdropColor: #000000;
@@ -26,6 +27,7 @@
         border: var(--simpleDialogBorder);
         border-radius: var(--simpleDialogBorderRadius);
         min-width: var(--simpleDialogMinWidth);
+        max-width: var(--simpleDialogMaxWidth);
         padding: var(--simpleDialogPadding);
         position: var(--simpleDialogPosition);
         top: var(--simpleDialogTop);
