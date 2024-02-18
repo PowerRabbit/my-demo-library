@@ -9,9 +9,13 @@ export class MyDemoButton extends LitElement {
     @property()
         myType: 'button' | 'submit' | 'reset' | 'menu' = 'button';
 
+    private onClick() {
+        this.dispatchEvent(new CustomEvent('myclick'));
+    }
+
     override render() {
         return html`
-            <button type=${this.myType} @click=${() => {alert('Hey!');}}>Hej med jer!</button>
+            <button type=${this.myType} @click=${this.onClick}><slot></slot></button>
     `;
     }
 }

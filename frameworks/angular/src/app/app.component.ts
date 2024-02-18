@@ -14,4 +14,11 @@ import 'my-lib-demo';
 })
 export class AppComponent {
     title = 'myApp';
+
+    atomicDesignDialogOpen = false;
+
+    openAtomicDesign() {
+        this.atomicDesignDialogOpen= true;
+    }
+
 }

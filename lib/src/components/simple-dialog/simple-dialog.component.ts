@@ -36,8 +36,19 @@ export class SimpleDialog extends LitElement {
     @property({ type: String })
         closeDialogLabel = 'Close dialog';
 
+    @property({ type: Boolean, attribute: 'sd-is-open' })
+    set isOpen(value: boolean) {
+        this._isOpen = value;
+        if (value) {
+            this.openDialog();
+        }
+    }
+    get isOpen() {
+        return this._isOpen;
+    }
+
     @state()
-        isOpen = false;
+        _isOpen = false;
 
     private returnFocusTo?: FocusableElementType;
     private kewdownListener = (e: KeyboardEvent): void => {
@@ -57,10 +68,28 @@ export class SimpleDialog extends LitElement {
         this.addEventListener(simpleDialogCloseDialogEvent, this.closeByEventListener);
     }
 
-    async open(options?: SimpleDialogOpenOptionsType): Promise<void> {
-        if (this.isOpen) {
-            return;
+    open(options?: SimpleDialogOpenOptionsType): Promise<void> {
+        if (this._isOpen) {
+            return Promise.resolve();
         }
+        return this.openDialog(options);
+    }
+
+    async close(): Promise<void> {
+        document.body.removeEventListener('keydown', this.kewdownListener);
+        this._isOpen = false;
+        const dialog = this.shadowRoot?.querySelector('dialog');
+        this.dispatchEvent(new CustomEvent('simpleDialogClosed'));
+        if (dialog) {
+            dialog.addEventListener('keydown', this.kewdownListener);
+            dialog.close();
+        }
+        if (this.returnFocusTo && typeof this.returnFocusTo.focus === 'function') {
+            this.returnFocusTo.focus();
+        }
+    }
+
+    private async openDialog(options?: SimpleDialogOpenOptionsType): Promise<void> {
         const { returnFocusTo } = options || {};
 
         if (returnFocusTo && typeof (returnFocusTo as FocusableElementType).focus === 'function') {
@@ -69,7 +98,7 @@ export class SimpleDialog extends LitElement {
 
         document.body.addEventListener('keydown', this.kewdownListener);
 
-        this.isOpen = true;
+        this._isOpen = true;
 
         setTimeout(() => {
             const dialog = this.shadowRoot?.querySelector('dialog');
@@ -89,19 +118,6 @@ export class SimpleDialog extends LitElement {
 
     }
 
-    async close(): Promise<void> {
-        document.body.removeEventListener('keydown', this.kewdownListener);
-        this.isOpen = false;
-        const dialog =  this.shadowRoot?.querySelector('dialog');
-        if (dialog) {
-            dialog.addEventListener('keydown', this.kewdownListener);
-            dialog.close();
-        }
-        if (this.returnFocusTo && typeof this.returnFocusTo.focus === 'function') {
-            this.returnFocusTo.focus();
-        }
-    }
-
     private closeByEventListener = () => {
         this.close();
     };
@@ -109,7 +125,7 @@ export class SimpleDialog extends LitElement {
     protected override render() {
         return html`
             ${
-    this.isOpen ? html`
+    this._isOpen ? html`
                     ${this.sdNoBackdrop ? html`` : html`<div class="backdrop"></div>`}
                         <dialog
                             title=${ifDefined(this.sdTitle)}

@@ -15,7 +15,15 @@
         <aside>
             <h3>Custom elements</h3>
             <p>HTML elements whose behavior is defined by the web developer, that extend the set of elements available in the browser.</p>
-            <button>Atomic design</button>
+            <my-button (myclick)="openAtomicDesign()">Atomic design</my-button>
+            <simple-dialog
+                (simpleDialogClosed)="atomicDesignDialogOpen = false"
+                [attr.sd-is-open]="atomicDesignDialogOpen ? '' : null">
+                <div slot="dialog-header">
+                    <h2>Hello there!</h2>
+                </div>
+                <p>This is an example of Custom element-based dialog.</p>
+            </simple-dialog>
         </aside>
         <aside>
             <h3>Internationalisation</h3>
