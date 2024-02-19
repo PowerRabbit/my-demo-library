@@ -50,17 +50,12 @@
         my-button {
             --color-link: var(--color-secondary);
             --buttonPadding: 0 1rem 0.1rem 1rem;
-            appearance: none;
-            border: var(--dialogCloseButtonBorder);
-            border-radius: var(--dialogCloseButtonBorderRadius);
-            color: var(--dialogCloseButtonColor);
-            cursor: pointer;
+
             font-size: var(--dialogCloseButtonFontSize);
             line-height: var(--dialogCloseButtonLineHeight);
             outline: none;
 
             &:hover {
-            /*     background-color: var(--dialogCloseButtonBgColorHover); */
                 color: var(--dialogCloseButtonColorHover);
             }
             &:focus-visible {
