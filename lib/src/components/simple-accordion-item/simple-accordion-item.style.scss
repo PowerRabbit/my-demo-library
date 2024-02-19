@@ -6,7 +6,7 @@
 
     --simpleAccordionItemSummaryBorder: 1px transparent solid;
     --simpleAccordionItemSummaryBgColor: var(--color-link);
-    --simpleAccordionItemSummaryColor: #ffffff;
+    --simpleAccordionItemSummaryColor: var(--color-bg);
 
     --simpleAccordionItemSummaryBorderHover: 1px var(--simpleAccordionItemSummaryBgColor) solid;
     --simpleAccordionItemSummaryBgColorHover:  var(--color-link);
@@ -28,6 +28,8 @@
         background-color: var(--simpleAccordionItemSummaryBgColor);
         border: var(--simpleAccordionItemSummaryBorder);
         color: var(--simpleAccordionItemSummaryColor);
+        font-size: medium;
+        font-weight: bold;
 
         cursor: pointer;
         list-style: var(--simpleAccordionItemListStyle);
@@ -39,7 +41,6 @@
         &:focus-visible {
             background-color: var(--simpleAccordionItemSummaryBgColorHover);
             border: var(--simpleAccordionItemSummaryBorderHover);
-            color: var(--simpleAccordionItemSummaryColorHover);
             filter: brightness(var(--hover-brightness));
         }
         &:focus-visible {

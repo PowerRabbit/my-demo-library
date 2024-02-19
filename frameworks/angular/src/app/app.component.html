@@ -1,8 +1,6 @@
-<!-- <div>
-   <my-button></my-button>
-</div> -->
 <header>
     <h1>Custom Elements in an Angular application</h1>
+    <p><label id="themeSwitch"><sup>Theme</sup>Switch</label> between <mark>light</mark> <simple-toggle [simple-checked]="darkTheme" (simpleChange)="toggleTheme()" simple-external-label-id="themeSwitch"></simple-toggle> <mark>dark</mark>.</p>
 </header>
 
 <main>
@@ -82,6 +80,9 @@
         <aside>
             <h3>Accessibility</h3>
             <p>The Web is fundamentally designed to work for all people, whatever their hardware, software, language, location, or ability. When the Web meets this goal, it is accessible to people with a diverse range of hearing, movement, sight, and cognitive ability.</p>
+            <p>
+                <a href="https://www.w3.org/TR/WCAG22/" target="_blank" aria-describedby="outerLinkDescription">WCAG 2.2 ↗</a>
+            </p>
         </aside>
     </section>
     <hr>
@@ -97,6 +98,7 @@
     <p>
         TypeScript Live: CPH, 6 March 2024.
     </p>
+    <div hidden id="outerLinkDescription">Link opens in a new tab.</div>
 </footer>
 
 <router-outlet></router-outlet>

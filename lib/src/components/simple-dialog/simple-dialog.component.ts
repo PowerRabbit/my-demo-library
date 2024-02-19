@@ -136,7 +136,7 @@ export class SimpleDialog extends LitElement {
                                         <slot name="dialog-header"></slot>
                                     </div>
                                     <div class="close-button-wrapper">
-                                        <button class="close-x-button" aria-label="${this.closeDialogLabel}" @click=${this.close}>x</button>
+                                        <my-button class="close-x-button" my-aria-label="${this.closeDialogLabel}" @click=${this.close}>x</my-button>
                                     </div>
                                 </div>
                                 <slot></slot>

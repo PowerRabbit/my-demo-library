@@ -16,7 +16,7 @@ export class SimpleToggle extends LitElement {
         simpleTitle?: string;
 
     @property({ type: String, attribute: 'simple-aria-label' })
-        simpleAriaLabel?: string;
+        simpleAriaLabel?: string = 'Toggle';
 
     @property({ type: String, attribute: 'simple-aria-describedby' })
         simpleAriaDescribedBy?: string;

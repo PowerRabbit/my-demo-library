@@ -5,8 +5,8 @@
     --simpleDialogPadding: 1rem;
     --simpleDialogMinWidth: 40vw;
     --simpleDialogMaxWidth: 40vw;
-    --simpleDialogBorder: none;
-    --simpleDialogBorderRadius: 0.5rem;
+    --simpleDialogBorder: 1px solid var(--color-bg-secondary);
+    --simpleDialogBorderRadius: var(--border-radius);
     --simpleDialogBackdropColor: #000000;
     --simpleDialogBackdropOpacity: 0.5;
 
@@ -26,11 +26,15 @@
     dialog {
         border: var(--simpleDialogBorder);
         border-radius: var(--simpleDialogBorderRadius);
+        background: var(--color-bg);
+        color: var(--color-text);
+        font-family: var(--font-family);
         min-width: var(--simpleDialogMinWidth);
         max-width: var(--simpleDialogMaxWidth);
         padding: var(--simpleDialogPadding);
         position: var(--simpleDialogPosition);
         top: var(--simpleDialogTop);
+        box-shadow: var(--box-shadow) var(--color-shadow);
     }
 
     .content-wrapper {
@@ -42,9 +46,11 @@
     }
 
     .close-button-wrapper {
-        button {
+
+        my-button {
+            --color-link: var(--color-secondary);
+            --buttonPadding: 0 1rem 0.1rem 1rem;
             appearance: none;
-            background-color: var(--dialogCloseButtonBgColor);
             border: var(--dialogCloseButtonBorder);
             border-radius: var(--dialogCloseButtonBorderRadius);
             color: var(--dialogCloseButtonColor);
@@ -54,7 +60,7 @@
             outline: none;
 
             &:hover {
-                background-color: var(--dialogCloseButtonBgColorHover);
+            /*     background-color: var(--dialogCloseButtonBgColorHover); */
                 color: var(--dialogCloseButtonColorHover);
             }
             &:focus-visible {

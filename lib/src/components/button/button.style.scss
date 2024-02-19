@@ -1,4 +1,9 @@
 :host {
+    --buttonPadding: 1rem 2rem;
+}
+
+:host {
+
     button {
         border-radius: var(--border-radius);
         display: inline-block;
@@ -6,7 +11,7 @@
         font-weight: bold;
         line-height: var(--line-height);
         margin: 0.5rem 0;
-        padding: 1rem 2rem;
+        padding: var(--buttonPadding);
     }
 
     button {

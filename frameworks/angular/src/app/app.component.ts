@@ -1,4 +1,4 @@
-import { CUSTOM_ELEMENTS_SCHEMA, ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import 'my-lib-demo';
@@ -17,10 +17,16 @@ export class AppComponent {
 
     atomicDesignDialogOpen = false;
     calendarDialogOpen = false;
+    darkTheme = false;
     locale = 'en-US';
 
-    constructor(private ref: ChangeDetectorRef) {
-
+    toggleTheme() {
+        this.darkTheme = !this.darkTheme;
+        if (this.darkTheme) {
+            document.documentElement.setAttribute('data-theme-dark', '');
+        } else {
+            document.documentElement.removeAttribute('data-theme-dark');
+        }
     }
 
     openAtomicDesign() {
@@ -33,7 +39,6 @@ export class AppComponent {
 
     changeLocale(e: Event) {
         this.locale = (e.target as HTMLInputElement).value;
-        this.ref.detectChanges();
     }
 
 }
