@@ -32,8 +32,9 @@ import 'my-lib-demo';
 
 <template>
     <header>
-    <h1>Custom Elements in an Vue application</h1>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+    <h1>Custom Elements in Vue application</h1>
+    <svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 261.76 226.69"><path d="M161.096.001l-30.225 52.351L100.647.001H-.005l130.877 226.688L261.749.001z" fill="#41b883"/><path d="M161.096.001l-30.225 52.351L100.647.001H52.346l78.526 136.01L209.398.001z" fill="#34495e"/></svg>
+
     <p><label id="themeSwitch"><sup>Theme</sup>Switch</label> between <mark>light</mark> <simple-toggle :simple-checked="darkTheme ? '' : null" @simpleChange="toggleTheme()" simple-external-label-id="themeSwitch"></simple-toggle> <mark>dark</mark>.</p>
 </header>
 <main>
@@ -136,13 +137,13 @@ import 'my-lib-demo';
 </template>
 
 <style scoped>
-.logo {
-    display: block;
-    margin: 0 auto 2rem;
+
+body>div header {
+    padding-top: 3rem;
 }
 
 .logo {
-    width: 200px;
+    height: 200px;
 }
 
 #themeSwitch {

@@ -1,25 +1,19 @@
 import React, { DOMAttributes, useEffect, useRef, useState } from "react";
 import 'my-lib-demo';
-import { MyDemoButton, SimpleDialog } from "my-lib-demo";
+import { MyDemoButton, SimpleAccordion, SimpleAccordionItem, SimpleCalendar, SimpleDialog, SimpleToggle } from "my-lib-demo";
 import { createComponent } from '@lit/react';
 
-type CustomEvents<K extends string> = { [key in K] : (event: CustomEvent) => void };
-type CustomElement<T, K extends string = ''> = Partial<T & DOMAttributes<T> & { children: any } & CustomEvents<`on${K}`>>;
-
-
-interface MyElement extends HTMLElement {
-    ref: React.MutableRefObject<HTMLElement>;
-}
+type CustomElement<T> = Partial<HTMLElement & DOMAttributes<HTMLElement> & { children: any , ref: React.MutableRefObject<T> }>;
 
 declare global {
     namespace JSX {
         interface IntrinsicElements {
-            'my-button': CustomElement<MyElement, 'closeChange' | 'openChange'>;
-            'simple-toggle': CustomElement<HTMLElement>;
-            'simple-dialog': CustomElement<MyElement>;
-            'simple-calendar': CustomElement<HTMLElement>;
-            'simple-accordion': CustomElement<HTMLElement>;
-            'simple-accordion-item': CustomElement<HTMLElement>;
+            'my-button': CustomElement<MyDemoButton>;
+            'simple-toggle': CustomElement<SimpleToggle>;
+            'simple-dialog': CustomElement<SimpleDialog>;
+            'simple-calendar': CustomElement<SimpleCalendar>;
+            'simple-accordion': CustomElement<SimpleAccordion>;
+            'simple-accordion-item': CustomElement<SimpleAccordionItem>;
         }
     }
 }
@@ -40,50 +34,46 @@ const SimpleDialogComponent = createComponent({
         'onSimpleDialogClosed': 'simpleDialogClosed',
     },
 });
+const SimpleToggleComponent = createComponent({
+    tagName: 'simple-toggle',
+    elementClass: SimpleToggle,
+    react: React,
+    events: {
+        'onSimpleChange': 'simpleChange',
+    },
+});
 
 const App: React.FC = () => {
 
-    const demoButtonRef = useRef<MyDemoButton>(null);
-    const atomicDesignDialogRef = useRef<SimpleDialog>(null);
-
     const [calendarVisible, setCalendarVisible] = useState(false);
     const [locale, setLocale] = useState('en-US');
+    const swithTheme = () => {
+        document.documentElement.hasAttribute('data-theme-dark') ?
+        document.documentElement.removeAttribute('data-theme-dark') :
+        document.documentElement.setAttribute('data-theme-dark', '');
+    };
 
-    const darkTheme = useRef(false);
-
-    const toggleTheme = () => {
-        darkTheme.current = !darkTheme.current;
-        if (darkTheme.current) {
-            document.documentElement.setAttribute('data-theme-dark', '');
-        } else {
-            document.documentElement.removeAttribute('data-theme-dark');
+    const demoButtonRef = useRef<MyDemoButton>(null);
+    const atomicDesignDialogRef = useRef<SimpleDialog>(null);
+    const atomicDesignListener = () => {
+        if (atomicDesignDialogRef.current) {
+            atomicDesignDialogRef.current.isOpen = !atomicDesignDialogRef.current.isOpen;
         }
-    }
+    };
 
     useEffect(() => {
         const demoButton = demoButtonRef.current;
-        const listener = () => {
-            if (atomicDesignDialogRef.current) {
-                atomicDesignDialogRef.current.isOpen = !atomicDesignDialogRef.current.isOpen;
-            }
-        }
-
-        if (demoButton) {
-            demoButton.addEventListener('myclick', listener);
-        }
-
+        demoButton?.addEventListener('myclick', atomicDesignListener);
         return () => {
-            if (demoButton) {
-                demoButton.removeEventListener('myclick', listener);
-            }
+            demoButton?.removeEventListener('myclick', atomicDesignListener);
         }
     });
 
     return <>
-    <header>
-    <h1>Custom Elements in an React application</h1>
+<header>
+    <h1>Custom Elements in React application</h1>
     <img src="./logo512.png" alt="React logo" className="logo" />
-    <p><label id="themeSwitch"><sup>Theme</sup>Switch</label> between <mark>light</mark> <simple-toggle simple-external-label-id="themeSwitch"></simple-toggle> <mark>dark</mark>.</p>
+    <p id="toggleWrapper"><label id="themeSwitch"><sup>Theme</sup>Switch</label> between <mark>light</mark> <SimpleToggleComponent onSimpleChange={swithTheme} simple-external-label-id="themeSwitch"></SimpleToggleComponent> <mark>dark</mark>.</p>
 </header>
 <main>
     <section>

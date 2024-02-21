@@ -13,6 +13,10 @@ html[data-theme-dark] {
     --color-text-secondary: #aaa;
 }
 
+body>div header {
+    padding-top: 3rem;
+}
+
 .logo {
     width: 200px;
 }
