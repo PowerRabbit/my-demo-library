@@ -10,7 +10,7 @@
     lodash.assignwith "^4.2.0"
     typical "^7.1.1"
 
-"@a11y/focus-trap@^1.0.5":
+"@a11y/focus-trap@1.0.5":
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/@a11y/focus-trap/-/focus-trap-1.0.5.tgz#0748189c37ca21255c702aa5de3ee00ed4821d22"
   integrity sha512-3JOd6g+BALysWS8LNf0qdB8ltR651H/RCLAvUmfS0LIHwHO579XfjZUIZbURYiAZrcbp1CBAq4QZ2YwKNQZ1hw==
@@ -2362,6 +2362,11 @@
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@lit-labs/ssr-dom-shim/-/ssr-dom-shim-1.1.2.tgz#d693d972974a354034454ec1317eb6afd0b00312"
   integrity sha512-jnOD+/+dSrfTWYfSXBXlo5l5f0q1UuJo3tkbMDCYA2lKUYq79jaxqtGEvnRoh049nt1vdo1+45RinipU6FGY2g==
+
+"@lit/react@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@lit/react/-/react-1.0.3.tgz#2e4e7d3ecc8def238c4d2f5c9bef95a23d4ed7bc"
+  integrity sha512-RGoPMrAPbFjQFXFbfmYdotw000DyChehTim+d562HRXvFGw//KxouI8jNOcc3Kw/1uqUA1SJqXFtKKxK0NUrww==
 
 "@lit/reactive-element@^2.0.0":
   version "2.0.3"

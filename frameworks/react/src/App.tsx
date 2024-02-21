@@ -1,6 +1,7 @@
-import React, { ChangeEvent, DOMAttributes, useEffect, useRef } from "react";
+import React, { DOMAttributes, useEffect, useRef, useState } from "react";
 import 'my-lib-demo';
 import { MyDemoButton, SimpleDialog } from "my-lib-demo";
+import { createComponent } from '@lit/react';
 
 type CustomEvents<K extends string> = { [key in K] : (event: CustomEvent) => void };
 type CustomElement<T, K extends string = ''> = Partial<T & DOMAttributes<T> & { children: any } & CustomEvents<`on${K}`>>;
@@ -23,15 +24,32 @@ declare global {
     }
 }
 
+const MyButtonComponent = createComponent({
+    tagName: 'my-button',
+    elementClass: MyDemoButton,
+    react: React,
+    events: {
+      'onmyclick': 'myclick',
+    },
+});
+const SimpleDialogComponent = createComponent({
+    tagName: 'simple-dialog',
+    elementClass: SimpleDialog,
+    react: React,
+    events: {
+        'onSimpleDialogClosed': 'simpleDialogClosed',
+    },
+});
+
 const App: React.FC = () => {
 
     const demoButtonRef = useRef<MyDemoButton>(null);
     const atomicDesignDialogRef = useRef<SimpleDialog>(null);
-    const darkTheme = useRef(false);
 
-    const changeLocale = (e: ChangeEvent<HTMLSelectElement>) => {
-        console.log(e);
-    }
+    const [calendarVisible, setCalendarVisible] = useState(false);
+    const [locale, setLocale] = useState('en-US');
+
+    const darkTheme = useRef(false);
 
     const toggleTheme = () => {
         darkTheme.current = !darkTheme.current;
@@ -76,6 +94,7 @@ const App: React.FC = () => {
         <aside>
             <h3>Custom elements</h3>
             <p>HTML elements whose behavior is defined by the web developer, that extend the set of elements available in the browser.</p>
+            {/* Works with React ref */}
             <my-button ref={demoButtonRef}>Atomic design</my-button>
             <simple-dialog ref={atomicDesignDialogRef}>
                 <div slot="dialog-header">
@@ -116,12 +135,16 @@ const App: React.FC = () => {
         <aside>
             <h3>Internationalisation</h3>
             <p>The ECMAScript 2024 Internationalization API Specification, provides key language sensitive functionality, which has been selected from that of well-established internationalization APIs.</p>
-            <my-button>Calendar</my-button>
-            <simple-dialog
+
+            {/* Works with CreateComponent from lit/react */}
+            <MyButtonComponent onmyclick={() => setCalendarVisible(true)}>Calendar</MyButtonComponent>
+            <SimpleDialogComponent
+                isOpen={calendarVisible}
+                onSimpleDialogClosed={() => setCalendarVisible(false)}
                 sd-aria-label="Internationalised calendar"
                >
                 <div slot="dialog-header">
-                    <select onChange={(e) => changeLocale(e)}>
+                    <select onChange={(e) => setLocale(e.target.value)}>
                         <option value="en-US">USA</option>
                         <option value="en-GB">Great Britain</option>
                         <option value="fr-FR">France</option>
@@ -133,9 +156,9 @@ const App: React.FC = () => {
                     </select>
                 </div>
                 <div>
-                    <simple-calendar sc-locale="locale"></simple-calendar>
+                    <simple-calendar sc-locale={locale}></simple-calendar>
                 </div>
-            </simple-dialog>
+            </SimpleDialogComponent>
         </aside>
         <aside>
             <h3>Accessibility</h3>
