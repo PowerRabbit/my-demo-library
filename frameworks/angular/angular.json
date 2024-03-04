@@ -6,7 +6,8 @@
       "environment": "local",
       "enabled": false
     },
-    "packageManager": "yarn"
+    "packageManager": "yarn",
+    "analytics": false
   },
   "newProjectRoot": "projects",
   "projects": {
